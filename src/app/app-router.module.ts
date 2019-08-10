@@ -1,4 +1,4 @@
-import { RouterModule, Routes  from '@angular/router'};
+import { RouterModule, Routes}  from '@angular/router';
 
 //component
 import {FormComponent} from './form/form.component';
