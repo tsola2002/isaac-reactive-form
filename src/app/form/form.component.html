@@ -1,5 +1,60 @@
- <form [formGroup]="entryForm">
-  <input type="text" placeholder="Entry Description">
-  <input type="text" placeholder="Entry Value">
-  <button>Submit</button>
-</form>
+ <div class="container">
+  <form class="form-horizontal mt-2 mb-2" novalidate [formGroup]="entryForm" (ngSubmit)="save()">
+    <div class="form-group row mb-2">
+      
+      <label class="col-md-2 control-label" for="firstNameId">First Name</label>
+      <div class="col-md-10">
+          <input class="form-control" formControlName="firstName" type="text" id="firstNameId" placeholder="Enter first name" required minlength="3">
+      </div>
+         
+    </div>
+    <div class="form-group row mb-2">
+        <label class="col-md-2 control-label" for="lastNameId">Last Name</label>
+        <div class="col-md-10">
+            <input class="form-control" formControlName="lastName" type="text" id="lastNameId" placeholder="Enter Your Last Name" required minlength="3"> 
+        </div>     
+    </div>
+
+    <div class="form-group row mb-2">
+        <label class="col-md-2 control-label" for="emailId">Email</label>
+        <div class="col-md-10">
+            <input class="form-control" formControlName="email" type="text" placeholder="Enter Your Email">
+        </div>     
+    </div>
+
+     <div class="form-group">
+        <div class="col-md-8">
+            <div class="form-check">
+              <label class="form-check-label">
+                <input class="form-check-input"
+                       id="sendCatalogId"
+                       type="checkbox"
+                       > Send me your catalog
+              </label>
+            </div>
+          </div> 
+    </div> 
+    
+    <div class="form-group">
+      <div class="">
+        <span>
+            <button class="btn btn-info" 
+            type="submit"
+            [disabled]=!entryForm.valid>Save</button>  
+        </span>
+        <span>
+          <button class="btn btn-default" type="button" (click)="populateTestData()">
+            Test Data
+          </button>
+        </span>
+      </div>
+        
+    </div>
+    
+  </form>
+ </div>
+ <br>Dirty: {{ entryForm.dirty }}
+ <br>Touched: {{ entryForm.touched }}
+ <br>Valid: {{ entryForm.valid }}
+ <br>Value: {{ entryForm.value | json }}
+ 
