@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-form', 
@@ -22,9 +22,9 @@ export class FormComponent implements OnInit {
            //formbuilder takes in a control configuration object & defines he form controls associated with the form group
            //you can have two options or specify an array
           this.entryForm = this.fb.group({
-            firstName:'',
-            lastName:{value:'n/a', disabled:true},
-            email:'',
+            firstName:['',[Validators.required, Validators.minLength(3)]],
+            lastName:['', [Validators.required, Validators.maxLength(50)]],
+            email:['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]],
             sendCatalog:true
           });
 
