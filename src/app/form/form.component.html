@@ -55,6 +55,39 @@
         </div>     
     </div>
 
+    <!--  phone number field  -->
+    <div class="form-group row mb-2" [ngClass]="{'has-error': !entryForm.get('phone'.valid) }">
+        <label class="col-md-2 control-label" for="phoneId">Phone</label>
+        <div class="col-md-10">
+            <input class="form-control" formControlName="phone" id="phoneId" type="tel" placeholder="Enter Your Phone Number">
+            <span class="help-block" *ngIf="(entryForm.get('phone').touched ||
+                                           entryForm.get('phone').dirty) &&
+                                           entryForm.get('phone').errors">
+            <span *ngIf="entryForm.get('phone').errors.required">
+              Please Enter Your Phone Number
+            </span>
+            <span *ngIf="entryForm.get('phone').errors.minlength">
+                the phone number must be longer tha 3 characters
+              </span>
+          </span> 
+        </div>     
+    </div>
+
+    <!--  checkboxes field  -->
+    <div class="form-group row mb-2">
+        <label class="col-md-2 control-label" for="phoneId">Send Notifications</label>
+        <div class="col-md-10">
+          <label class="radio-inline">
+              <input class="form-control" formControlName="notification" (click)="setNotification('email')" value="email" type="radio" placeholder="Enter Your Phone Number">
+              Email
+            </label>
+            <label class="radio-inline">
+                <input class="form-control" formControlName="notification" (click)="setNotification('text')" value="text" type="radio" placeholder="Enter Your Phone Number">
+                Text
+              </label> 
+          </div>     
+    </div>
+
      <div class="form-group">
         <div class="col-md-8">
             <div class="form-check">

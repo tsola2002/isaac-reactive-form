@@ -25,6 +25,8 @@ export class FormComponent implements OnInit {
             firstName:['',[Validators.required, Validators.minLength(3)]],
             lastName:['', [Validators.required, Validators.maxLength(50)]],
             email:['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]],
+            phone: '',
+            notification:'email',
             sendCatalog:true
           });
 
@@ -46,6 +48,19 @@ export class FormComponent implements OnInit {
       email: 'jackwood@torchwood.com',
       sendCatalog: false
     });
+  }
+
+  setNotification(notifyVia: string): void{
+     //we need a reference to the formcontrol
+     //if the notification is via text then we add the validator
+     const phoneControl = this.entryForm.get('phone');
+     if (notifyVia === 'text') {
+       phoneControl.setValidators(Validators.required); 
+     } else {
+       phoneControl.clearValidators();
+     }
+     //we need to re-evaluate the forms control state
+     phoneControl.updateValueAndValidity();
   }
 
  
