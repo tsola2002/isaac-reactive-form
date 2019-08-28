@@ -1,5 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+
+
+//validator function takes in form control or formgroup with key value return type specified 
+function ratingRange(c: AbstractControl): {[key: string]: boolean} | null {
+  if (c.value != undefined && (isNaN(c.value) || c.value < 1 || c.value > 5)) {
+      return { 'range': true };
+  };
+  return null;
+};
+
 
 @Component({
   selector: 'app-form', 
@@ -15,7 +25,6 @@ export class FormComponent implements OnInit {
   constructor(private fb: FormBuilder) { }
 
 
-
   
 
   ngOnInit(): void {
@@ -27,6 +36,7 @@ export class FormComponent implements OnInit {
             email:['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]],
             phone: '',
             notification:'email',
+            rating:['', ratingRange],
             sendCatalog:true
           });
 

@@ -73,6 +73,23 @@
         </div>     
     </div>
 
+    <!--  rating field  -->
+    <div class="form-group row mb-2" [ngClass]="{'has-error': (entryForm.get('rating').touched ||
+                                                              entryForm.get('rating').dirty) &&
+                                                              !entryForm.get('rating').valid }">
+        <label class="col-md-2 control-label" for="ratingId">Rating</label>
+        <div class="col-md-10">
+            <input class="form-control" formControlName="rating" id="ratingId" type="number">
+            <span class="help-block" *ngIf="(entryForm.get('rating').touched ||
+                                           entryForm.get('rating').dirty) &&
+                                           entryForm.get('rating').errors">
+            <span *ngIf="entryForm.get('rating').errors.range">
+              Please rate your experience from 1 to 5.
+            </span>
+          </span> 
+        </div>     
+    </div>
+
     <!--  checkboxes field  -->
     <div class="form-group row mb-2">
         <label class="col-md-2 control-label" for="phoneId">Send Notifications</label>
