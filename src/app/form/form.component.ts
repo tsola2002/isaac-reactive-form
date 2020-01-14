@@ -1,13 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
+//validator function will take in a formgroup
+function emailMatcher(c: AbstractControl) {
+  //the variable defines the form controls
+  let emailControl = c.get('email');
+  let confirmControl = c.get('confirmEmail');
+  //skip the validation if the form controls have not been touched 
+  if(emailControl.pristine || confirmControl.pristine) {
+    return null;
+  }
+  //we use the variables to check the values the formcontrols
+  if (emailControl.value === confirmControl.value){
+    //if they match we return null
+    return null;
+  }
+  //if they dont match we return a key/value
+  return { 'match': true };
+}
 
 //validator function takes in form control or formgroup with key value return type specified 
 function ratingRange(c: AbstractControl): {[key: string]: boolean} | null {
   if (c.value != undefined && (isNaN(c.value) || c.value < 1 || c.value > 5)) {
       return { 'range': true };
   };
-  return null;
+  return null; 
 };
 
 
@@ -33,7 +50,11 @@ export class FormComponent implements OnInit {
           this.entryForm = this.fb.group({
             firstName:['',[Validators.required, Validators.minLength(3)]],
             lastName:['', [Validators.required, Validators.maxLength(50)]],
-            email:['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]],
+            //creating nested form group for cross field validation
+            emailGroup: this.fb.group({
+              email:['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]],
+              confirmEmail:['', Validators.required],
+            }, {validator: emailMatcher}),
             phone: '',
             notification:'email',
             rating:['', ratingRange],

@@ -1,7 +1,7 @@
  <div class="container">
   <form class="form-horizontal mt-2 mb-2" novalidate [formGroup]="entryForm" (ngSubmit)="save()">
     <div class="form-group row mb-2"
-      [ngClass]="{'has-error': (entryForm.get('firstName').touched ||
+      [ngClass]="{'is-invalid': (entryForm.get('firstName').touched ||
                                 entryForm.get('firstName').dirty) &&
                                 !entryForm.get('firstName').valid }">
       
@@ -38,21 +38,45 @@
         </div>     
     </div>
 
-    <div class="form-group row mb-2">
-        <label class="col-md-2 control-label" for="emailId">Email</label>
-        <div class="col-md-10">
-            <input class="form-control" formControlName="email" type="text" placeholder="Enter Your Email">
-            <span class="help-block" *ngIf="(entryForm.get('email').touched ||
-                                           entryForm.get('email').dirty) &&
-                                           entryForm.get('email').errors">
-            <span *ngIf="entryForm.get('email').errors.required">
-              Please Enter your Email Address
-            </span>
-            <span *ngIf="entryForm.get('firstName').errors.minlength">
-                the first name must be longer tha 3 characters
+    <div formGroupName="emailGroup"
+        [ngClass]="{'has-error': entryForm.get('emailGroup').errors }">
+        <!--  email field  -->
+        <div class="form-group row mb-2" [ngClass]="{'has-error': (entryForm.controls.emailGroup.controls.email.touched ||
+                                                    entryForm.get('emailGroup.email').dirty) &&
+                                                    !entryForm.get('emailGroup.email').valid }">
+            <label class="col-md-2 control-label" for="emailId">Email</label>
+            <div class="col-md-10">
+                <input class="form-control" formControlName="email" type="text" placeholder="Enter Your Email">
+                <span class="help-block" *ngIf="(entryForm.get('emailGroup.email').touched ||
+                                                  entryForm.get('emailGroup.email').dirty) &&
+                                                  entryForm.get('emailGroup.email').errors">
+                <span *ngIf="entryForm.get('emailGroup.email').errors.required">
+                  Please Enter your Email Address
+                </span>
+                <span *ngIf="entryForm.get('emailGroup.email').errors.pattern">
+                    Please enter a valid email address
+                  </span>
               </span>
-          </span>
-        </div>     
+            </div>     
+        </div>
+
+        <!--  confirm email field  -->
+        <div class="form-group row mb-2"
+        [ngClass]="{'has-error': (entryForm.get('emailGroup.confirmEmail').touched ||
+                                  entryForm.get('emailGroup.confirmEmail').dirty) &&
+                                  !entryForm.get('emailGroup.confirmEmail').valid }">
+            <label class="col-md-2 control-label" for="confirmEmailId"> Confirm Email</label>
+            <div class="col-md-10">
+                 <input class="form-control" formControlName="confirmEmail" type="text" placeholder="Confirm Email (required)">
+                <span class="help-block" *ngIf="(entryForm.get('emailGroup.confirmEmail').touched ||
+                                              entryForm.get('emailGroup.confirmEmail').dirty) &&
+                                              entryForm.get('emailGroup.confirmEmail').errors">
+                <span *ngIf="entryForm.get('emailGroup.confirmEmail').errors.required">
+                  Please confirm your Email address.
+                </span>
+              </span>
+            </div>     
+        </div>
     </div>
 
     <!--  phone number field  -->
