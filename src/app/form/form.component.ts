@@ -61,6 +61,13 @@ export class FormComponent implements OnInit {
             sendCatalog:true
           });
 
+          // we watch as soon as the form component is initialized
+          // we get the notification form control
+          // we call the value changes property then we call the subscribe on the obsevable to watch for changes
+          // this code must coming after the root form group has been defined
+          this.entryForm.get('notification').valueChanges
+                        .subscribe(value => console.log(value));
+
           // formgroup is a collection of form controls where a form control belongs to a field
           // THE OLD WAY OF DOING FORM CONTROL
           // this.entryForm = new FormGroup({
